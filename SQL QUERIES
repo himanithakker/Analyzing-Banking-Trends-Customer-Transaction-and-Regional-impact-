@@ -1,7 +1,20 @@
-Find the user who made the largest deposit amount and the transaction type for that deposit.
+Calculate the total number of transactions made by each user in the "United States" region
 
 SELECT t.id_, r.region_name, t.t_type, t.t_amt,
 FROM `BankingAnalysis.Transaction ` t
 LEFT JOIN `BankingAnalysis.Region` r ON t.id_ = r.region_id
 WHERE r.region_name = 'United States'
 GROUP BY t.t_type,r.region_name, t.id_ ,t_amt;
+
+Calculate the total number of users who made more than 5 transactions
+
+**SELECT SUM(subquery.transaction_count) AS total_users_with_more_than_5_transactions**
+
+FROM (
+    SELECT id_, COUNT(*) AS transaction_count
+    FROM `BankingAnalysis.Transaction `
+    GROUP BY id_
+    HAVING COUNT(*) > 5
+) AS subquery;
+
+
