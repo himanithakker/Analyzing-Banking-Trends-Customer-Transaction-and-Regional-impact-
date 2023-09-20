@@ -8,7 +8,7 @@ GROUP BY t.t_type,r.region_name, t.id_ ,t_amt;
 
 Calculate the total number of users who made more than 5 transactions
 
-**SELECT SUM(subquery.transaction_count) AS total_users_with_more_than_5_transactions**
+##SELECT SUM(subquery.transaction_count) AS total_users_with_more_than_5_transactions##
 
 FROM (
     SELECT id_, COUNT(*) AS transaction_count
