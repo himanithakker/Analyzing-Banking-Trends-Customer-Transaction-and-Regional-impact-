@@ -6,7 +6,7 @@ LEFT JOIN `BankingAnalysis.Region` r ON t.id_ = r.region_id
 WHERE r.region_name = 'United States'
 GROUP BY t.t_type,r.region_name, t.id_ ,t_amt;
 
-###Calculate the total number of users who made more than 5 transactions###
+Calculate the total number of users who made more than 5 transactions
 
 SELECT SUM(subquery.transaction_count) AS total_users_with_more_than_5_transactions
 
@@ -16,5 +16,57 @@ FROM (
     GROUP BY id_
     HAVING COUNT(*) > 5
 ) AS subquery;
+
+Find the regions with the highest number of nodes assigned to them
+
+select r.region_name, COUNT(n.node_id) AS total_count 
+FROM `BankingAnalysis.Region` r
+LEFT JOIN `BankingAnalysis.Nodes` n on n.region_id = r.region_id
+GROUP BY r.region_name
+ORDER BY total_count DESC 
+LIMIT 1; 
+
+Find the user who made the largest deposit amount in the "Australia" region
+
+select t.id_, r.region_name, t_type, SUM(t_amt) as total from `BankingAnalysis.Transaction `t 
+LEFT JOIN `BankingAnalysis.Region` r ON r.region_id = t.id_
+WHERE region_name = 'Australia'
+Group By t.t_type, r.region_name, t.id_
+ORDER BY total DESC 
+LIMIT 1 
+
+Calculate the total amount deposited by each user in each region
+
+SELECT r.region_name, COUNT(r.region_id) AS consumer_count
+FROM `BankingAnalysis.Region` r
+LEFT JOIN `BankingAnalysis.Nodes` n ON r.region_id = n.region_id
+GROUP BY r.region_name
+ORDER BY r.region_name;
+
+Retrieve the total number of transactions for each region
+
+SELECT r.region_name, SUM(t.t_amt) AS total_deposit_amount
+FROM `BankingAnalysis.Transaction ` t
+JOIN `BankingAnalysis.Region` r ON r.region_id = t.id_
+GROUP BY r.region_name
+ORDER BY r.region_name;
+
+Write a query to find the total deposit amount for each region (region_name) in the user_transaction table. Consider only those transactions where the consumer_id is associated with a valid region in the user_nodes table.
+
+SELECT r.region_name, COUNT(r.region_id) AS consumer_count
+FROM `BankingAnalysis.Region` r
+LEFT JOIN `BankingAnalysis.Nodes` n ON r.region_id = n.region_id
+GROUP BY r.region_name
+ORDER BY r.region_name;
+
+How many transactions were made by consumers from each region?
+
+select region_name, COUNT(t.id_) as total_transaction  
+from `BankingAnalysis.Transaction ` t
+JOIN `BankingAnalysis.Region` r on r.region_id = t.id_
+GROUP BY r.region_name
+ORDER BY r.region_name
+
+
 
 
