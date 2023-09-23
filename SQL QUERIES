@@ -1,4 +1,4 @@
-Calculate the total number of transactions made by each user in the "United States" region
+##Calculate the total number of transactions made by each user in the "United States" region
 
 SELECT t.id_, r.region_name, t.t_type, t.t_amt,
 FROM `BankingAnalysis.Transaction ` t
