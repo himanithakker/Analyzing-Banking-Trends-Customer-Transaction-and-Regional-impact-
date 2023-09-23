@@ -33,6 +33,4 @@ This project leverages three key tables that provide valuable information for an
 
 This project aims to provide valuable insights into customer behavior and regional financial trends by leveraging data cleaning and SQL analysis techniques. The findings may have implications for decision-makers in the banking industry.
 
-*Author: [Your Name]*
-
 
